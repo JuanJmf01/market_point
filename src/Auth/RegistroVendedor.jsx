@@ -9,8 +9,6 @@ import FormGroupCheckBox from "../Utils/FormGroupCheckBox";
 import Input from "../Utils/Input";
 import { guardarTokenLocalStorage, obtenerClaims } from "./manejadorJWT";
 
-
-
 export default function RegistroVendedor() {
 
     const [facebook, setFacebook] = useState(false)
@@ -28,7 +26,7 @@ export default function RegistroVendedor() {
             console.log(respuesta.data)
             registroSecundario(credenciales)
             navigate('/login')
-        }catch(error){
+        } catch (error) {
             console.log(error.response.data)
         }
     }
@@ -40,6 +38,22 @@ export default function RegistroVendedor() {
         catch (error) {
             console.error(error.response.data)
         }
+    }
+
+
+    async function hacerAdmin(email) {
+        axios.get(`${urlCuentas}/${email}`)
+            .then((respuesta) => {
+                editarAdmin(`${urlCuentas}/hacerVendedor`, respuesta.data.id);
+            })
+    }
+
+    async function editarAdmin(url, id) {
+        await axios.post(url, JSON.stringify(id),
+            {
+                headers: { 'Content-Type': 'application/json' }
+            }
+        )
     }
 
 
@@ -59,6 +73,7 @@ export default function RegistroVendedor() {
             }}
                 onSubmit={async valores => {
                     await registroPrincipal(valores)
+                    await hacerAdmin(valores.email)
                     console.log(valores)
                 }}
             >

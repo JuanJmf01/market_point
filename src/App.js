@@ -4,13 +4,14 @@ import { rutas } from './route.config';
 import './App.css'
 import Menu from './Utils/Menu';
 import { useState, useEffect } from 'react';
-import {obtenerClaims} from './Auth/manejadorJWT'
+import { obtenerClaims } from './Auth/manejadorJWT'
 import { configurarInterceptor } from './Utils/interceptores';
 
 export const AutenticationContextt = React.createContext()
 
 function App() {
 
+  configurarInterceptor()
   const [claims, setClaims] = useState([])
 
   useEffect(() => {

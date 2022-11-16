@@ -1,22 +1,26 @@
 import { Link } from "react-router-dom";
 import './css/productoIndividual.css'
 export default function ProductoIndividual(props) {
-    const id = 1
-    const precio = 500
-    const nombre = 'julito'
-    const construirLink = () => `/productos/${id}`
+
+    const construirLink = () => `/productos/${props.producto.id}`
+    const { producto } = props
     return (
         <>
-            <div className='card col-3 shadow p-3 mb-5 bg-body rounded'>
-                <Link to={construirLink()}>
-                    <img src={props.producto.imagenProducto} class="card-img-top" alt="Poster" />
-                </Link>  
-                <div className="car-body p-2" >
-                    <h5 class="card-title"><span><Link style={{ textDecoration: 'none' }}>{precio}</Link></span></h5>
-                    <p class="card-text"><Link href={construirLink()} style={{ textDecoration: 'none' }}>{nombre}</Link></p>
-                    <Link className='btn btn-outline-secondary '
-                        to={`/productos/${id}`}>
-                        Ver
+            <div className='card col-3 shadow p-4 mb-52 bg-body rounded component'>
+
+                <div>
+                    <Link to={construirLink()}>
+                        <img src={props.producto.imagenProducto} alt="Poster" />
+                    </Link>
+                    <p>
+                        <Link href={construirLink()}>{props.producto.nombre}</Link>
+                    </p>
+                    <span><Link>{props.producto.precio}</Link></span>
+                </div>
+                <div className="buttons">
+                    <Link className='btn btn-outline-secondary'
+                        to={construirLink()}>
+                        Vista Previa
                     </Link>
                 </div>
             </div>
